@@ -22,7 +22,10 @@
 						<%= obj.NameArm %>
 						<%= obj.Date %>
 						<%= obj.Votes %>
-						<button id='update' class='subbutt' id_number = <%= obj.ID%>>Update</button>
+						<%= obj.Live %>
+						<button id='live' class='subbutt' id_number = <%= obj.ID%>>Live</button>
+						<button id='kill' class='subbutt' id_number = <%= obj.ID%>>Kill</button>
+						<button id='delete' class='subbutt' id_number = <%= obj.ID%>>Delete</button>
 					</div>
 				<% }); %>
 			</script>

@@ -463,11 +463,34 @@ $('#page').on('click', '#submit',  function(e) {
  	});
 });
 
-$('#pending').on('click', '#update',  function(e) {
+$('#pending').on('click', '#live',  function(e) {
 	e.preventDefault();
 	console.log($(this).attr('id_number'));
 	$.post( 
      "update.php",
+     {ID: $(this).attr('id_number')},
+     function(data) {
+        $('#test').html(data);
+ 	});
+});
+
+
+$('#pending').on('click', '#kill',  function(e) {
+	e.preventDefault();
+	console.log("KILL");
+	$.post( 
+     "kill.php",
+     {ID: $(this).attr('id_number')},
+     function(data) {
+        $('#test').html(data);
+ 	});
+});
+
+$('#pending').on('click', '#delete',  function(e) {
+	e.preventDefault();
+	console.log("DELETED");
+	$.post( 
+     "delete.php",
      {ID: $(this).attr('id_number')},
      function(data) {
         $('#test').html(data);
