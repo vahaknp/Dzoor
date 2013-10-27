@@ -1,0 +1,156 @@
+@font-face {
+    font-family: 'arian_amu';
+    src: url('arnamu_bold-webfont.eot');
+    src: url('arnamu_bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('arnamu_bold-webfont.woff') format('woff'),
+         url('arnamu_bold-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+}    
+
+@font-face {
+    font-family: 'fedra_sans_light';
+    src: url('fedra_sans_light-webfont.eot');
+    src: url('fedra_sans_light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fedra_sans_light-webfont.woff') format('woff'),
+         url('fedra_sans_light-webfont.ttf') format('truetype'),
+         url('fedra_sans_light-webfont.svg#fedra_sans_light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'fedra_sans_book';
+    src: url('fedra_sans_book-webfont.eot');
+    src: url('fedra_sans_book-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fedra_sans_book-webfont.woff') format('woff'),
+         url('fedra_sans_book-webfont.ttf') format('truetype'),
+         url('fedra_sans_book-webfont.svg#fedra_sans_book') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+.armFont 
+{ 
+	font-family: "Fedra Sans Armenian Book";
+	font-size: 11pt;
+	font-style: normal;	
+	font-weight: normal; 
+
+}
+
+.engFont 
+{
+	font-family: "fedra_sans_book";
+	font-size: 11pt;
+	font-style: normal;	
+	font-weight: normal; 
+}
+
+#page 
+{
+	position:absolute;
+	left: 50%;
+	height: 1000px;
+	width: 600px;
+	margin: 50px 0px 0px -300px;
+}
+
+#title
+{
+}
+
+#line
+{
+	position: relative;
+	bottom: 1px;
+	display: block; 
+	border: 0; 
+	border-top: 1px
+	solid #000;
+	margin: 0;
+	padding: 0;	
+	width: 600px;
+}
+
+#EngBox
+{ 
+	position: relative;
+	height: 60px;
+}
+
+#ArmBox
+{
+	height: 60px;
+}
+
+#EngText
+{
+	position: relative;
+	font-family: "fedra_sans_book";
+	font-size: 16px;
+	font-style: normal;	
+	font-weight: normal;
+} 
+
+#ArmText
+{
+	margin-left: 2;
+	margin-top: 10;
+	font-family: "Fedra Sans Armenian Book";
+	font-size: 17px;
+	font-style: normal;	
+	font-weight: normal;
+}
+
+#icon
+{
+	margin-bottom: 30px;
+	position:relative;
+	float: center;
+	background-color:#FFFFFF
+}
+
+#content
+{
+	position:relative;
+	width: 600px;
+	height: 1000px;
+}
+
+.vahaksucks
+{
+	position:relative;
+	width: 560px;
+	height: 105px;
+
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+.otherbox
+{
+	border: 1px solid #505050;
+	width: 230px;
+}
+
+.sentbox
+{
+	border: 1px solid #505050;
+	width: 560px;
+}
+
+.subbutt
+{
+	margin-left: 4px;
+	margin-right: 4px;
+	width: 80px;
+}
+
+.pend
+{
+	border: 1px solid #505050;
+}

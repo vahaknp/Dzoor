@@ -1,0 +1,79 @@
+	#page 
+	{
+		position:absolute;
+		left: 50%;
+		height: 1000px;
+		width: 600px;
+		margin: 100px 0px 0px -300px;
+		background-color:#FFFFFF;
+	}
+
+	#title
+	{
+		height: 140px;
+		background-color:#FFFFFF;
+	}
+
+	#line
+	{
+		position: relative;
+		top: 15px;
+		display: block; 
+		border: 0; 
+		border-top: 1px 
+		solid #000;
+		margin: 0;
+		padding: 0;	
+	}
+
+	#EngBox
+	{ 
+		height: 60px;
+		background-color:#FFFFFF;
+	}
+
+	#ArmBox
+	{
+		height: 60px;
+		background-color:#FFFFFF
+	}
+
+	#EngText
+	{
+		width: 530px;
+		float: right;
+		margin-top: 4;
+		margin-left: 4;
+		font-family: 'Raleway', sans-serif;
+		font-size: 13pt;
+		font-style: normal;
+		font-weight: normal;
+	} 
+
+	#ArmText
+	{
+		margin-left: 2;
+		margin-top: 10;
+		font-family: "Fedra Sans Armenian Book";
+		font-size: 13pt;
+		font-style: normal;	
+		font-weight: normal;
+	}
+
+	#icon
+	{
+		position:relative;
+		margin-top: 3;
+		float: left;
+		height: 60px;
+		width: 60px; 
+		background-color:#FFFFFF
+	}
+
+	#content
+	{
+		position:relative;
+		width: 600px;
+		height: 1000px;
+		background-color:#FFFFFF
+	}
