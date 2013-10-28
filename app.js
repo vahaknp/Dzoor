@@ -470,8 +470,9 @@ $('#pending').on('click', '#live',  function(e) {
      "update.php",
      {ID: $(this).attr('id_number')},
      function(data) {
-        $('#test').html(data);
+        location.reload(true)
  	});
+
 });
 
 
@@ -482,7 +483,7 @@ $('#pending').on('click', '#kill',  function(e) {
      "kill.php",
      {ID: $(this).attr('id_number')},
      function(data) {
-        $('#test').html(data);
+        location.reload(true)
  	});
 });
 
@@ -493,7 +494,7 @@ $('#pending').on('click', '#delete',  function(e) {
      "delete.php",
      {ID: $(this).attr('id_number')},
      function(data) {
-        $('#test').html(data);
+        location.reload(true)
  	});
 });
 

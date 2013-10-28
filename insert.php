@@ -6,7 +6,6 @@
 		   $armenian = $_REQUEST['armenian'];
 		   $name = $_REQUEST['name'];
 		   $location = $_REQUEST['location'];
-		   echo "Logged.";
 		   mysql_query("INSERT INTO posts (Armenian, English, Place, Name, Date) VALUES ('$armenian','$english','$location','$name', NOW())"); 
 	}
 ?>

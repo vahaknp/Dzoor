@@ -3,7 +3,6 @@
 	if( $_REQUEST["ID"])
 	{
 		   $index = $_REQUEST['ID'];
-		   echo "Updated.";
 		   mysql_query("UPDATE posts SET Live=1 WHERE ID='$index'"); 
 	}
 ?>

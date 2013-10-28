@@ -8,30 +8,31 @@
 		</script>
 	</head>
 	<body onload="on_load2()">
-		<p>TESTING YO YO</p>
+		<div id="page">	
+			<p>TESTING YO YO</p>
+			<div id="pending">
+				<script id="posts" type="text/html">
+					<% _.each(array, function(obj){ %>
+						<div class="pend"> 
+							<%= obj.ID %>
+							<%= obj.Armenian %>
+							<%= obj.English %>
+							<%= obj.Place %>
+							<%= obj.Name %>
+							<%= obj.NameArm %>
+							<%= obj.Date %>
+							<%= obj.Votes %>
+							<%= obj.Live %>
+							<button id='live' class='subbutt' id_number = <%= obj.ID%>>Live</button>
+							<button id='kill' class='subbutt' id_number = <%= obj.ID%>>Kill</button>
+							<button id='delete' class='subbutt' id_number = <%= obj.ID%>>Delete</button>
+						</div>
+					<% }); %>
+				</script>
+			</div>
 
-		<div id="pending">
-			<script id="posts" type="text/html">
-				<% _.each(array, function(obj){ %>
-					<div class="pend"> 
-						<%= obj.ID %>
-						<%= obj.Armenian %>
-						<%= obj.English %>
-						<%= obj.Place %>
-						<%= obj.Name %>
-						<%= obj.NameArm %>
-						<%= obj.Date %>
-						<%= obj.Votes %>
-						<%= obj.Live %>
-						<button id='live' class='subbutt' id_number = <%= obj.ID%>>Live</button>
-						<button id='kill' class='subbutt' id_number = <%= obj.ID%>>Kill</button>
-						<button id='delete' class='subbutt' id_number = <%= obj.ID%>>Delete</button>
-					</div>
-				<% }); %>
-			</script>
-		</div>
-
-		<div id="test">
+			<div id="test">
+			</div>
 		</div>
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
