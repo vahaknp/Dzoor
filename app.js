@@ -499,6 +499,18 @@ $('#pending').on('click', '#delete',  function(e) {
 });
 
 
+$('#pending').on('click', '#edit',  function(e) {
+	e.preventDefault();
+	console.log("id:", $(this).attr('id_number'), "arm:", $(this).siblings("#Armenian").val(), "eng:", $(this).siblings("#English").val(), "pla:", $(this).siblings("#Place").val(), "name:", $(this).siblings("#Name").val(), "armname:", $(this).siblings("#NameArm").val());
+	$.post( 
+     "edit.php",
+     {ID: $(this).attr('id_number'), armenian: $(this).siblings("#Armenian").val(), english: $(this).siblings("#English").val(), place: $(this).siblings("#Place").val(), name: $(this).siblings("#Name").val(), namearm: $(this).siblings("#NameArm").val()},
+     function(data) {
+        location.reload(true)
+     });
+ });
+
+
 // ######## OTHER ######## // 
 
 function rounder (number){

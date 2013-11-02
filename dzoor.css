@@ -150,7 +150,13 @@
 	width: 80px;
 }
 
+
 .pend
 {
 	border: 1px solid #505050;
+}
+
+.pendbox1
+{
+	width: 500px;
 }

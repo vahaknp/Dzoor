@@ -14,18 +14,17 @@
 				<script id="posts" type="text/html">
 					<% _.each(array, function(obj){ %>
 						<div class="pend"> 
-							<%= obj.ID %>
-							<%= obj.Armenian %>
-							<%= obj.English %>
-							<%= obj.Place %>
-							<%= obj.Name %>
-							<%= obj.NameArm %>
-							<%= obj.Date %>
-							<%= obj.Votes %>
-							<%= obj.Live %>
+							ID: <%= obj.ID %> Date: <%= obj.Date %> Votes: <%= obj.Votes %> Live: <%= obj.Live %><br>
+							Armenian: <input type='text' class='pendbox1' id='Armenian' value='<%= obj.Armenian %>'><br>
+							English: <input type='text' class='pendbox1' id='English' value='<%= obj.English %>'><br>
+							<input type='text' id='Place' value='<%= obj.Place %>'>
+							<input type='text' id='Name' value='<%= obj.Name %>'>
+							<input type='text' id='NameArm' value='<%= obj.NameArm %>'>
+							<br>
 							<button id='live' class='subbutt' id_number = <%= obj.ID%>>Live</button>
 							<button id='kill' class='subbutt' id_number = <%= obj.ID%>>Kill</button>
 							<button id='delete' class='subbutt' id_number = <%= obj.ID%>>Delete</button>
+							<button id='edit' class='subbutt' id_number = <%= obj.ID%>>Edit</button>
 						</div>
 					<% }); %>
 				</script>
