@@ -1,5 +1,10 @@
 selectedId = 0;
 
+function on_load2(){
+	template = $("#posts").html();
+    $('#pending').append(_.template(template,{"array":array}));
+}
+
 function on_load() 
 {
 	makeSubShape(-1, 1, 120, '#content')
@@ -111,6 +116,7 @@ function drawShapeUp(canvasIn)
 	fill = true
 	stroke = false
 	shapeGraphics(graphics, color, width, sides, offset, fill, stroke)
+
 
 	// text
 	graphics.fillStyle = "#FFFFFF";;
@@ -243,42 +249,6 @@ function placeArrowBar(position, ondiv)
 	$(ondiv).append(canvas);
 }
 
-function submitArrows()
-{
-	var canvas = document.createElement('canvas');
-
-	canvas.style.position = "relative"
-	canvas.style.float = "top"
-	canvas.height = 70
-	canvas.width = 10
-
-	var graphics = canvas.getContext("2d");
-
-	graphics.strokeStyle = "#000000"
-	graphics.lineWidth = "1";
-
-	fix = 0;
-	indent = 1;
-	graphics.beginPath();
-	graphics.moveTo(0 + fix, indent + 5 + fix);  
-	graphics.lineTo(6 + fix, indent + 10 + fix); 
-	graphics.lineTo(0 + fix, indent + 15 + fix); 
-
-	indent = 23;
-	graphics.moveTo(0 + fix, indent + 5 + fix);  
-	graphics.lineTo(6 + fix, indent + 10 + fix); 
-	graphics.lineTo(0 + fix, indent + 15 + fix); 
-
-	indent = 45;
-	graphics.moveTo(0 + fix, indent + 5 + fix);  
-	graphics.lineTo(6 + fix, indent + 10 + fix); 
-	graphics.lineTo(0 + fix, indent + 15 + fix); 
-
-	graphics.stroke()
-
-	$(subArrows).append(canvas);
-}
-
 
 
 // ######## EVENTS ######## // 
@@ -290,15 +260,17 @@ $('#content').on('click', '#submitShape',  function(e) {
 
 
     // HTML string
-    htmlstring = "  <div id='subArrows'>\
-    				</div> \
-    				<div class='subBody'> \
+    htmlstring = "  <div> \
 						<input type='textbox' class='sentbox' id='english' placeholder='In English'></input> \
 						<input type='textbox' class='sentbox' id='armenian' placeholder='Հայերենով'></input> \
 						<input type='textbox' class='otherbox' id='name' placeholder='And you are?'></input> \
 						<input type='textbox' class='otherbox' id='location' placeholder='Where?'></input> \
 						<button id='submit' class='subbutt'>Submit</button>  \
 					</div> "
+
+
+
+
 
     if (!($(this).hasClass('.clicked')))
     {
@@ -335,7 +307,6 @@ $('#content').on('click', '#submitShape',  function(e) {
 				placeArrowBar(1,  $(this))
 				//drawShapeHull(80, Votes, $(this))
 				$(this).append(htmlstring)
-				submitArrows();
 				$(this).show('fast');
 				
 			}
@@ -483,6 +454,7 @@ $('#content').on('mouseout', '#hull',  function(e) {
 
 
 $('#page').on('click', '#submit',  function(e) {
+	e.preventDefault();
 	$.post( 
      "insert.php",
      {english: $('#english').val(), armenian: $('#armenian').val(), name: $('#name').val(), location: $('#location').val()},
@@ -491,6 +463,40 @@ $('#page').on('click', '#submit',  function(e) {
  	});
 });
 
+$('#pending').on('click', '#live',  function(e) {
+	e.preventDefault();
+	console.log($(this).attr('id_number'));
+	$.post( 
+     "update.php",
+     {ID: $(this).attr('id_number')},
+     function(data) {
+        location.reload(true)
+ 	});
+
+});
+
+
+$('#pending').on('click', '#kill',  function(e) {
+	e.preventDefault();
+	console.log("KILL");
+	$.post( 
+     "kill.php",
+     {ID: $(this).attr('id_number')},
+     function(data) {
+        location.reload(true)
+ 	});
+});
+
+$('#pending').on('click', '#delete',  function(e) {
+	e.preventDefault();
+	console.log("DELETED");
+	$.post( 
+     "delete.php",
+     {ID: $(this).attr('id_number')},
+     function(data) {
+        location.reload(true)
+ 	});
+});
 
 
 // ######## OTHER ######## // 
