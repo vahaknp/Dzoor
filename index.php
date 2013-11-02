@@ -14,7 +14,7 @@
 
 	    	WebFont.load({
 		    custom: {
-		      families: ['ArianAMU', 'fedra_sans_light', 'fedra_sans_book'],
+		      families: ['arian_amu', 'fedra_sans_light', 'fedra_sans_book'],
 		      urls : ['dzoor.css']
 		    }
 		  	});
@@ -25,7 +25,7 @@
 	<body bgcolor="#FFFFFF" onload="on_load()">
 		<div id="page">		
 			<div id="title">
-				<div id = "icon"> <center> <img src="icon.bmp"> </center> </div>
+				<div id = "icon"> <center> <object type="image/svg+xml" data="logovec.svg"></object> </center> </div>
 				<div id="EngBox">
 					<div id= "EngText">	Dzoor is a website that contains sentences mistranslated from Armenian to english. The direct translations result in silly Armenian sentences. This collection clearly presents.
 					</div>
