@@ -265,7 +265,7 @@ $('#content').on('click', '#submitShape',  function(e) {
 						<input type='textbox' class='sentbox' id='armenian' placeholder='Հայերենով'></input> \
 						<input type='textbox' class='otherbox' id='name' placeholder='And you are?'></input> \
 						<input type='textbox' class='otherbox' id='location' placeholder='Where?'></input> \
-						<button id='submit' class='subbutt'>Submit</button>  \
+						<button id='submit' class='subbutt'></button>  \
 					</div> "
 
 

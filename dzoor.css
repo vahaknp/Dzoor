@@ -133,23 +133,28 @@
 
 .otherbox
 {
-	border: 1px solid #505050;
+	border-width: 0px 0px 1px 0px;  
 	width: 230px;
+	border-color: black;
 }
 
 .sentbox
 {
-	border: 1px solid #505050;
+	
+	border-width: 0px 0px 1px 0px; 
+	border-color: black;
 	width: 560px;
 }
 
 .subbutt
 {
-	margin-left: 4px;
-	margin-right: 4px;
-	width: 80px;
+	background-image: url(check.bmp);
+ 	background-repeat: no-repeat;
+  	background-position: 50% 50%;
+	width: 84px;
+	height: 22px;
+	border: 0px;
 }
-
 
 .pend
 {
