@@ -1,5 +1,6 @@
 selectedId = 0;
 
+
 function on_load2(){
 	template = $("#posts").html();
     $('#pending').append(_.template(template,{"array":array}));
@@ -38,6 +39,7 @@ function makeShape(ID, Armenian, English, Place, Name, NameArm, leDate, Votes, i
 	canvas.height = size;
 	canvas.style.position = "relative";
 	canvas.style.margin = "15px 15px 5px 15px"
+	canvas.clickedBefore = false;
 
 	canvas.setAttribute('number', idcount)
 	canvas.setAttribute('Armenian', Armenian)
@@ -74,7 +76,7 @@ function makeSubShape(Votes, idcount, size, ondiv)
 	drawShapeUp(canvas)
 }
 
-function makeShapeHull(size, sides, ondiv)
+function makeShapeHull(size, sides, ondiv, isSubmit)
 {
 	var canvas = document.createElement('canvas');
 
@@ -82,11 +84,16 @@ function makeShapeHull(size, sides, ondiv)
 	canvas.style.float = "right"
 	canvas.style.marginRight = "16px";
 
+	if (isSubmit)
+		canvas.style.marginTop = "3px"
+
+
 	width = size
 	height = size
 	canvas.width = width
 	canvas.height = height
 	canvas.setAttribute('Sides', parseInt(sides))
+	canvas.checked =  false;
 
 	$(ondiv).append(canvas);
 
@@ -156,7 +163,7 @@ function drawShapeDown(canvasIn)
 }
 
 
-function drawShapeHull(canvasIn, sides)
+function drawShapeHull(canvasIn, sides, check)
 {
 	var canvas = canvasIn
 	width = canvas.width
@@ -167,16 +174,28 @@ function drawShapeHull(canvasIn, sides)
 	graphics.clearRect(0,0,width,height);
 	canvas.width = canvas.width;
 
-	// +
-	fix = 0.5
-	middle = width/2
-	graphics.moveTo(middle + fix,middle - 8 + fix);
-	graphics.lineTo(middle + fix, middle + 8 + fix);
-	graphics.moveTo(middle - 8 + fix, middle + fix); 
-	graphics.lineTo(middle + 8 + fix, middle + fix);
-	graphics.stroke()
+	fix = 0.5;
+	middle = width/2;
+
+	if (check)
+	{
+		fix = 0;
+		//check
+		graphics.moveTo(middle - 6 + fix - 2, middle + fix);
+		graphics.lineTo(middle + fix - 2, middle + 6 + fix); 
+		graphics.lineTo(middle + 12 + fix - 2, middle - 6 + fix);
+	}
+	else
+	{
+		// +
+		graphics.moveTo(middle + fix,middle - 8 + fix);
+		graphics.lineTo(middle + fix, middle + 8 + fix);
+		graphics.moveTo(middle - 8 + fix, middle + fix); 
+		graphics.lineTo(middle + 8 + fix, middle + fix);
+	}
 
 	// draw
+	graphics.stroke()
 	offset = 5
 	fill = false
 	stroke = true
@@ -189,6 +208,11 @@ function shapeGraphics(graphics, color, width, sides, offset, fill, stroke)
 	graphics.strokeStyle = "#000000"
 	graphics.lineWidth=1;
 
+	if(sides == 3)
+		pushdown = 4;
+	else
+		pushdown = 0;
+
 	graphics.beginPath();
 	graphics.moveTo(width/2,offset);  
 
@@ -200,7 +224,7 @@ function shapeGraphics(graphics, color, width, sides, offset, fill, stroke)
 	{ 
 		l = Math.sqrt(2*rad*rad*(1 - Math.cos((Math.PI*2/sides) * i)))
 		pointx = l * Math.cos((Math.PI/2 - angle/2)*i)
-		pointy = l * Math.sin((Math.PI/2 - angle/2)*i) + offset	
+		pointy = l * Math.sin((Math.PI/2 - angle/2)*i) + offset	+ pushdown
 		graphics.lineTo(pointx + width/2 , pointy); 
 	}
 	graphics.closePath();
@@ -260,12 +284,11 @@ $('#content').on('click', '#submitShape',  function(e) {
 
 
     // HTML string
-    htmlstring = "  <div> \
+    htmlstring = "  <div class='submittext'> \
 						<input type='textbox' class='sentbox' id='english' placeholder='In English'></input> \
 						<input type='textbox' class='sentbox' id='armenian' placeholder='Հայերենով'></input> \
 						<input type='textbox' class='otherbox' id='name' placeholder='And you are?'></input> \
 						<input type='textbox' class='otherbox' id='location' placeholder='Where?'></input> \
-						<button id='submit' class='subbutt'></button>  \
 					</div> "
 
 
@@ -305,8 +328,9 @@ $('#content').on('click', '#submitShape',  function(e) {
 			if ($(this).attr('number') == roundup){
 				$(this).html("")
 				placeArrowBar(1,  $(this))
-				//drawShapeHull(80, Votes, $(this))
+				makeShapeHull(80, 3, $(this), true)
 				$(this).append(htmlstring)
+				
 				$(this).show('fast');
 				
 			}
@@ -324,6 +348,7 @@ $('#content').on('click', '#canvas',  function(e) {
         var clickid,
         	roundup = 0;
 
+        clickedBefore = $(this).prop('clickedBefore')
         clickid = $(this).attr('number')
         Armenian = $(this).attr('Armenian')
         English = $(this).attr('English')
@@ -378,13 +403,16 @@ $('#content').on('click', '#canvas',  function(e) {
 
             });
         	$('.vahaksucks').each(function(index){
-        		if ($(this).attr('number') == roundup){
-        			$(this).html("")
-        			placeArrowBar(clickid,  $(this))
-					makeShapeHull(80, Votes, $(this))
-					$(this).append(htmlstring)
-					$(this).show('fast');
-					
+        		if ($(this).attr('number') == roundup)
+        		{
+        			//$(this).html("")
+        			if (!clickedBefore)
+        			{
+	        			placeArrowBar(clickid,  $(this))
+						makeShapeHull(80, Votes, $(this), false)
+						$(this).append(htmlstring)
+					}
+					$(this).show('fast');	
         		}
         		else{
         			$(this).hide('fast');
@@ -392,7 +420,7 @@ $('#content').on('click', '#canvas',  function(e) {
         	});
         };
         $(this).toggleClass("clicked");
-
+        $(this).prop('clickedBefore', true);
 });
 
 
@@ -440,16 +468,24 @@ $('#content').on('mouseout', '#submitShape',  function(e) {
 $('#content').on('mouseover', '#hull',  function(e) {
 		e.preventDefault();
 		sides = $(this).attr('Sides')
-		drawShapeHull($(this)[0], parseInt(sides) + 1)
+		drawShapeHull($(this)[0], parseInt(sides) + 1, true)
 			
 });
 
 $('#content').on('mouseout', '#hull',  function(e) {
 		e.preventDefault();
 		sides = $(this).attr('Sides')
-		drawShapeHull($(this)[0], parseInt(sides))		
+		if (!$(this).prop('checked'))
+		{
+			drawShapeHull($(this)[0], parseInt(sides), false)
+		}		
 });
 
+
+$('#content').on('click', '#hull',  function(e) {
+	$(this).attr('Clicked', true); 
+	console.log($(this).prop('checked', true))
+});
 
 
 

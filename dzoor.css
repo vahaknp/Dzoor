@@ -134,7 +134,7 @@
 .otherbox
 {
 	border-width: 0px 0px 1px 0px;  
-	width: 230px;
+	width: 227px;
 	border-color: black;
 }
 
@@ -143,17 +143,14 @@
 	
 	border-width: 0px 0px 1px 0px; 
 	border-color: black;
-	width: 560px;
+	width: 460px;
 }
 
 .subbutt
 {
-	background-image: url(check.bmp);
- 	background-repeat: no-repeat;
-  	background-position: 50% 50%;
-	width: 84px;
-	height: 22px;
-	border: 0px;
+	margin-left: 4px;
+	margin-right: 4px;
+	width: 80px;
 }
 
 .pend
@@ -164,4 +161,9 @@
 .pendbox1
 {
 	width: 500px;
+}
+
+.submittext
+{
+	width: 465px;
 }
