@@ -11,11 +11,6 @@ function on_load()
 	makeSubShape(-1, 1, 120, '#content')
 	template = $("#posts").html();
     $('#content').append(_.template(template,{"array":array}));
-    var lastnum = $('canvas').last().attr('number');
-    if (lastnum%4 !== 0){
-		$('#content').append('<div class="vahaksucks" number='+rounder(lastnum)+'> </div>');
-	}
-
     $('.vahaksucks').each(function(index){
         $(this).hide(0);
     });
@@ -62,7 +57,8 @@ function makeSubShape(Votes, idcount, size, ondiv)
 
 	canvas.sides = 4
 	canvas.color = "#FFD464"
-	canvas.id = "submitShape";
+	canvas.id = "canvas";
+	//canvas.id = "submitShape";
 	canvas.width = size;
 	canvas.height = size;
 	canvas.style.position = "relative";
@@ -273,80 +269,9 @@ function placeArrowBar(position, ondiv)
 	$(ondiv).append(canvas);
 }
 
-
-
-// ######## EVENTS ######## // 
-
-$('#content').on('click', '#submitShape',  function(e) {
-	e.preventDefault();
-    var clickid = $(this).attr('number'),
-    	roundup = 0; 
-
-
-    // HTML string
-    htmlstring = "  <div class='submittext'> \
-						<input type='textbox' class='sentbox' id='english' placeholder='In English'></input> \
-						<input type='textbox' class='sentbox' id='armenian' placeholder='Հայերենով'></input> \
-						<input type='textbox' class='otherbox' id='name' placeholder='And you are?'></input> \
-						<input type='textbox' class='otherbox' id='location' placeholder='Where?'></input> \
-					</div> "
-
-
-
-
-
-    if (!($(this).hasClass('.clicked')))
-    {
-    
-    	drawShapeDown($(this)[0])
-
-    	$('.clicked').each(function(index, obj){
-        		if ($(this).attr('number') == selectedId)
-        		{
-        			drawShapeUp($(this)[0])
-        		}
-
-        });
-
-    }
-
-
-	roundup = rounder(1);
-	if ($(this).hasClass("clicked")){
-		drawShapeUp($(this)[0])
-		$('.vahaksucks').each(function(index){
-			$(this).hide('fast');
-			selectedId = 0
-	    });
-	}
-	else{
-		selectedId = clickid
-		$('.clicked').each(function(){
-	        $(this).toggleClass("clicked");
-	    });
-		$('.vahaksucks').each(function(index){
-			if ($(this).attr('number') == roundup){
-				$(this).html("")
-				placeArrowBar(1,  $(this))
-				makeShapeHull(80, 3, $(this), true)
-				$(this).append(htmlstring)
-				
-				$(this).show('fast');
-				
-			}
-			else{
-				$(this).hide('fast');
-			}
-		});
-	};
-	$(this).toggleClass("clicked");
-
-});
-
 $('#content').on('click', '#canvas',  function(e) {
         e.preventDefault();
-        var clickid,
-        	roundup = 0;
+        var clickid;
 
         clickedBefore = $(this).prop('clickedBefore')
         clickid = $(this).attr('number')
@@ -358,37 +283,52 @@ $('#content').on('click', '#canvas',  function(e) {
         leDate = $(this).attr('Date')
         Votes = $(this).attr('Votes')
 
+	   	if(clickid == 1)
+	   	{
+	   		// submit shape html
+		    htmlstring = "  <div class='submittext'> \
+								<input type='textbox' class='sentbox' id='english' placeholder='In English'></input> \
+								<input type='textbox' class='sentbox' id='armenian' placeholder='Հայերենով'></input> \
+								<input type='textbox' class='otherbox' id='name' placeholder='And you are?'></input> \
+								<input type='textbox' class='otherbox' id='location' placeholder='Where?'></input> \
+							</div> "
+	   	}
+	   	else
+	   	{
+	        // all other shapes
+	        htmlstring = "	<span class='engFont'> In " +Place+", <br>	\
+	        				"+Name+" Thought: '"+English+"'.  <br>	\
+	        				</span> <span class='armFont'> Սուրէնը ըսավ: 'Ձրի ժամանակ ունի՞ս:'  <br>	\
+	        				Զինքը վաստակած է "+Votes+" կողմ: </span>	"
+	        
+
+	        // SHOULD BE !!! HTML string
+	        //htmlstring = "	<span class='engFont'> In " +Place+", <br>	\
+	        //				"+Name+" Thought: '"+English+"'.  <br>	\
+	        //				</span> <span class='armFont'> "+NameArm+" ըսավ: '"+Armenian+"'  <br>	\
+	        //				Զինքը վաստակած է "+Votes+" կողմ: </span> 	"
+	        //	   		
+	   	}
 
         if (!($(this).hasClass('.clicked')))
         {
+        	// Make this pressed
         	drawShapeDown($(this)[0])
 
-        	$('.clicked').each(function(index, obj){
+        	// Make all others not pressed
+        	$('.clicked').each(function(index, obj)
+        	{
 	        		if ($(this).attr('number') == selectedId)
 	        		{
 	        			drawShapeUp($(this)[0])
 	        		}
 
 	        });
-
 	    }
 
-        // HTML string
-        htmlstring = "	<span class='engFont'> In " +Place+", <br>	\
-        				"+Name+" Thought: '"+English+"'.  <br>	\
-        				</span> <span class='armFont'> Սուրէնը ըսավ: 'Ձրի ժամանակ ունի՞ս:'  <br>	\
-        				Զինքը վաստակած է "+Votes+" կողմ: </span>	"
-        
 
-        // SHOULD BE !!! HTML string
-        //htmlstring = "	<span class='engFont'> In " +Place+", <br>	\
-        //				"+Name+" Thought: '"+English+"'.  <br>	\
-        //				</span> <span class='armFont'> "+NameArm+" ըսավ: '"+Armenian+"'  <br>	\
-        //				Զինքը վաստակած է "+Votes+" կողմ: </span> 	"
-        //
-
-        roundup = rounder(clickid);
         if ($(this).hasClass("clicked")){
+        	// If this shaped was already clicked
         	drawShapeUp($(this)[0])
        		$('.vahaksucks').each(function(index){
 				$(this).hide('fast');
@@ -397,25 +337,33 @@ $('#content').on('click', '#canvas',  function(e) {
 	    }
         else{
         	selectedId = clickid
-        	$('.clicked').each(function(){
+        	$('.clicked').each(function()
+        	{
                 $(this).toggleClass("clicked");
-
-
             });
+
         	$('.vahaksucks').each(function(index){
-        		if ($(this).attr('number') == roundup)
+        		if ($(this).attr('number') == clickid)
         		{
         			//$(this).html("")
         			if (!clickedBefore)
         			{
-	        			placeArrowBar(clickid,  $(this))
-						makeShapeHull(80, Votes, $(this), false)
+        				placeArrowBar(clickid,  $(this))
+
+        				if(clickid == 1)
+        					makeShapeHull(80, 3, $(this), true)
+        				else
+							makeShapeHull(80, Votes, $(this), false)
+
 						$(this).append(htmlstring)
 					}
 					$(this).show('fast');	
         		}
         		else{
-        			$(this).hide('fast');
+        			if($(this).attr('number')/4 == selectedId/4)
+        				$(this).hide();
+        			else
+        				$(this).hide('fast');
         		}
         	});
         };
@@ -424,6 +372,7 @@ $('#content').on('click', '#canvas',  function(e) {
 });
 
 
+// Mouse over/out
 
 //Canvas
 
@@ -436,25 +385,6 @@ $('#content').on('mouseover', '#canvas',  function(e) {
 });
 
 $('#content').on('mouseout', '#canvas',  function(e) {
-		e.preventDefault();
-		if ($(this).attr('number') != selectedId)
-		{
-			drawShapeUp($(this)[0])
-		}
-			
-});
-
-//Submit
-
-$('#content').on('mouseover', '#submitShape',  function(e) {
-		e.preventDefault();
-		if ($(this).attr('number') != selectedId)
-		{
-			drawShapeDown($(this)[0])
-		}			
-});
-
-$('#content').on('mouseout', '#submitShape',  function(e) {
 		e.preventDefault();
 		if ($(this).attr('number') != selectedId)
 		{
@@ -482,6 +412,8 @@ $('#content').on('mouseout', '#hull',  function(e) {
 });
 
 
+//  Click
+
 $('#content').on('click', '#hull',  function(e) {
 	$(this).attr('Clicked', true); 
 	console.log($(this).prop('checked', true))
@@ -498,6 +430,8 @@ $('#page').on('click', '#submit',  function(e) {
         $('#page').html(data);
  	});
 });
+
+// Click pending
 
 $('#pending').on('click', '#live',  function(e) {
 	e.preventDefault();
