@@ -1,6 +1,3 @@
-selectedId = -1;
-
-
 function on_load2(){
 	template = $("#posts").html();
     $('#pending').append(_.template(template,{"array":array}));
@@ -44,6 +41,7 @@ function makeShape(ID, Armenian, English, Place, Name, NameArm, leDate, Votes, i
 	canvas.setAttribute('Date', leDate)
 	canvas.setAttribute('Votes', Votes)
 	canvas.setAttribute('Place', Place)
+	canvas.setAttribute('prevClicked', 0)
 
 	$('#content').append(canvas);
 	
@@ -271,7 +269,9 @@ function placeArrowBar(position, ondiv)
 $('#content').on('click', '#canvas',  function(e) {
         e.preventDefault();
 
+        prevClicked = $(this).attr('prevClicked')
         clickedBefore = $(this).hasClass('clickedBefore');
+
         clickid = $(this).attr('number')
         Armenian = $(this).attr('Armenian')
         English = $(this).attr('English')
@@ -310,7 +310,7 @@ $('#content').on('click', '#canvas',  function(e) {
 	   	}
 
 
-        if (!($(this).hasClass('clicked')))
+        if ($(this).hasClass('clicked')))
         {
         	// Make this pressed
         	drawShapeDown($(this)[0])
@@ -318,7 +318,7 @@ $('#content').on('click', '#canvas',  function(e) {
         	// Make all others not pressed
         	$('.clicked').each(function(index, obj)
         	{
-	        		if ($(this).attr('number') == selectedId)
+	        		if ($(this).attr('number') == clickid)
 	        		{
 	        			drawShapeUp($(this)[0])
 	        		}
@@ -332,7 +332,7 @@ $('#content').on('click', '#canvas',  function(e) {
         	drawShapeUp($(this)[0])
        		$('.vahaksucks').each(function(index){
 				$(this).hide('fast');
-				selectedId = -1;
+				clickid = -1;
 	        });
 	    }
         else{
@@ -356,14 +356,14 @@ $('#content').on('click', '#canvas',  function(e) {
 
 						$(this).append(htmlstring)
 					}
-					if(Math.floor((clickid-1)/4) == Math.floor((selectedId-1)/4) && clickid != selectedId)
+					if(Math.floor((clickid-1)/4) == Math.floor((prevClicked-1)/4) && clickid != prevClicked)
         				$(this).show();
         			else
 						$(this).show('fast');	
         		}
         		else
         		{
-					if(Math.floor((clickid-1)/4) == Math.floor((selectedId-1)/4) && clickid != selectedId)
+					if(Math.floor((clickid-1)/4) == Math.floor((prevClicked-1)/4) && clickid != prevClicked)
         				$(this).hide();
         			else
 						$(this).hide('fast');	
@@ -374,7 +374,11 @@ $('#content').on('click', '#canvas',  function(e) {
 
         if (!clickedBefore)
         	$(this).toggleClass("clickedBefore");
-        selectedId = clickid;
+
+        $('canvas').each(function()
+        {
+            $(this)[0].setAttribute("prevClicked", clickid);
+        });
 });
 
 
@@ -384,7 +388,7 @@ $('#content').on('click', '#canvas',  function(e) {
 
 $('#content').on('mouseover', '#canvas',  function(e) {
 		e.preventDefault();
-		if ($(this).attr('number') != selectedId)
+		if ($(this).attr('number') != $(this).attr('prevClicked'))
 		{
 			drawShapeDown($(this)[0])
 		}			
@@ -392,7 +396,7 @@ $('#content').on('mouseover', '#canvas',  function(e) {
 
 $('#content').on('mouseout', '#canvas',  function(e) {
 		e.preventDefault();
-		if ($(this).attr('number') != selectedId)
+		if ($(this).attr('number') != $(this).attr('prevClicked'))
 		{
 			drawShapeUp($(this)[0])
 		}
