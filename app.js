@@ -1,4 +1,4 @@
-selectedId = 0;
+selectedId = -1;
 
 
 function on_load2(){
@@ -34,7 +34,6 @@ function makeShape(ID, Armenian, English, Place, Name, NameArm, leDate, Votes, i
 	canvas.height = size;
 	canvas.style.position = "relative";
 	canvas.style.margin = "15px 15px 5px 15px"
-	canvas.clickedBefore = false;
 
 	canvas.setAttribute('number', idcount)
 	canvas.setAttribute('Armenian', Armenian)
@@ -271,9 +270,8 @@ function placeArrowBar(position, ondiv)
 
 $('#content').on('click', '#canvas',  function(e) {
         e.preventDefault();
-        var clickid;
 
-        clickedBefore = $(this).prop('clickedBefore')
+        clickedBefore = $(this).hasClass('clickedBefore');
         clickid = $(this).attr('number')
         Armenian = $(this).attr('Armenian')
         English = $(this).attr('English')
@@ -282,6 +280,7 @@ $('#content').on('click', '#canvas',  function(e) {
         NameArm = $(this).attr('NameArm')
         leDate = $(this).attr('Date')
         Votes = $(this).attr('Votes')
+		
 
 	   	if(clickid == 1)
 	   	{
@@ -310,7 +309,8 @@ $('#content').on('click', '#canvas',  function(e) {
 	        //	   		
 	   	}
 
-        if (!($(this).hasClass('.clicked')))
+
+        if (!($(this).hasClass('clicked')))
         {
         	// Make this pressed
         	drawShapeDown($(this)[0])
@@ -332,11 +332,11 @@ $('#content').on('click', '#canvas',  function(e) {
         	drawShapeUp($(this)[0])
        		$('.vahaksucks').each(function(index){
 				$(this).hide('fast');
-				selectedId = 0
+				selectedId = -1;
 	        });
 	    }
         else{
-        	selectedId = clickid
+        	// if you click on a new shape
         	$('.clicked').each(function()
         	{
                 $(this).toggleClass("clicked");
@@ -345,7 +345,6 @@ $('#content').on('click', '#canvas',  function(e) {
         	$('.vahaksucks').each(function(index){
         		if ($(this).attr('number') == clickid)
         		{
-        			//$(this).html("")
         			if (!clickedBefore)
         			{
         				placeArrowBar(clickid,  $(this))
@@ -357,18 +356,25 @@ $('#content').on('click', '#canvas',  function(e) {
 
 						$(this).append(htmlstring)
 					}
-					$(this).show('fast');	
+					if(Math.floor((clickid-1)/4) == Math.floor((selectedId-1)/4) && clickid != selectedId)
+        				$(this).show();
+        			else
+						$(this).show('fast');	
         		}
-        		else{
-        			if($(this).attr('number')/4 == selectedId/4)
+        		else
+        		{
+					if(Math.floor((clickid-1)/4) == Math.floor((selectedId-1)/4) && clickid != selectedId)
         				$(this).hide();
         			else
-        				$(this).hide('fast');
+						$(this).hide('fast');	
         		}
         	});
         };
         $(this).toggleClass("clicked");
-        $(this).prop('clickedBefore', true);
+
+        if (!clickedBefore)
+        	$(this).toggleClass("clickedBefore");
+        selectedId = clickid;
 });
 
 
