@@ -1,7 +1,3 @@
-function on_load2(){
-	template = $("#posts").html();
-    $('#pending').append(_.template(template,{"array":array}));
-}
 
 function on_load() 
 {
@@ -12,6 +8,12 @@ function on_load()
         $(this).hide(0);
     });
 }
+
+function on_load2(){
+	template = $("#posts").html();
+    $('#pending').append(_.template(template,{"array":array}));
+}
+
 
 // ######## SHAPES ######## // 
 
@@ -266,7 +268,8 @@ function placeArrowBar(position, ondiv)
 	$(ondiv).append(canvas);
 }
 
-$('#content').on('click', '#canvas',  function(e) {
+$('#content').on('click', '#canvas',  function(e) 
+{
         e.preventDefault();
 
         prevClicked = $(this).attr('prevClicked')
@@ -309,25 +312,7 @@ $('#content').on('click', '#canvas',  function(e) {
 	        //	   		
 	   	}
 
-
-        if ($(this).hasClass('clicked')))
-        {
-        	// Make this pressed
-        	drawShapeDown($(this)[0])
-
-        	// Make all others not pressed
-        	$('.clicked').each(function(index, obj)
-        	{
-	        		if ($(this).attr('number') == clickid)
-	        		{
-	        			drawShapeUp($(this)[0])
-	        		}
-
-	        });
-	    }
-
-
-        if ($(this).hasClass("clicked")){
+        if (clickid == prevClicked){
         	// If this shaped was already clicked
         	drawShapeUp($(this)[0])
        		$('.vahaksucks').each(function(index){
@@ -335,12 +320,13 @@ $('#content').on('click', '#canvas',  function(e) {
 				clickid = -1;
 	        });
 	    }
-        else{
-        	// if you click on a new shape
-        	$('.clicked').each(function()
-        	{
-                $(this).toggleClass("clicked");
-            });
+        else
+        {
+	        $('canvas').each(function(index, obj)
+	        {
+	        	if($(this).prop('id') == "canvas" && $(this).attr('number') != clickid)
+	            	drawShapeUp($(this)[0]);
+	        });
 
         	$('.vahaksucks').each(function(index){
         		if ($(this).attr('number') == clickid)
@@ -370,15 +356,15 @@ $('#content').on('click', '#canvas',  function(e) {
         		}
         	});
         };
-        $(this).toggleClass("clicked");
 
-        if (!clickedBefore)
-        	$(this).toggleClass("clickedBefore");
+	    if (!clickedBefore)
+	    	$(this).toggleClass("clickedBefore");
 
-        $('canvas').each(function()
-        {
-            $(this)[0].setAttribute("prevClicked", clickid);
-        });
+	    $('canvas').each(function()
+	    {
+	    	if ($(this).prop('id') == "canvas")
+	        	$(this)[0].setAttribute("prevClicked", clickid);
+	    });
 });
 
 
