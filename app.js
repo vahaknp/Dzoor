@@ -26,7 +26,6 @@ function makeShape(dataID, Armenian, English, Place, Name, NameArm, leDate, Vote
 	//var colors = new Array("#D81236","#38558F","#38558F","#D96700","#F2B76B")
 	color = colors[Math.floor(Math.random() * colors.length)];
 	
-	canvas.sides = Votes
 	canvas.color = color
 	canvas.id = "canvas";
 	canvas.width = size;
@@ -55,7 +54,6 @@ function makeSubShape(Votes, idcount, size, ondiv)
 {
 	var canvas = document.createElement('canvas');
 
-	canvas.sides = Votes
 	canvas.color = "#FFD464"
 	canvas.id = "canvas";
 	//canvas.id = "submitShape";
@@ -142,9 +140,9 @@ function drawShapeDown(canvasIn)
 	var canvas = canvasIn
 
 	id = $(canvas).attr('number')
+	sides = $(canvas).attr('Votes')
 	width = canvas.width
 	height = canvas.height
-	sides = canvas.sides
 	color = canvas.color
 	color = '#FFFFFF'
 
@@ -421,6 +419,7 @@ $('#content').on('click', '#hull',  function(e) {
 				 	// redraw shape
 				 	$(this).attr('Votes', parseInt($(this).attr('Votes')) +1);
 				 	drawShapeUp($(this)[0])
+				 	drawShapeDown($(this)[0])
 		        }
 		    });	
 			
