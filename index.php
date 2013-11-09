@@ -58,8 +58,8 @@
 								<%$('#content').append('<div class="vahaksucks" number='+(idcount-1)+'>  </div>');%>
 								<%$('#content').append('<div class="vahaksucks" number='+(idcount)+'>  </div>');%>
 							<%}%>
+							<%idcount += 1;%>
 						<%}%>	
-						<%idcount += 1;%>
 					<% }); %>
 				</script>
 			</div>

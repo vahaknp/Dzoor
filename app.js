@@ -1,7 +1,7 @@
 
 function on_load() 
 {
-	makeSubShape(-1, 1, 120, '#content')
+	makeSubShape(4, 1, 120, '#content')
 	template = $("#posts").html();
     $('#content').append(_.template(template,{"array":array}));
     $('.vahaksucks').each(function(index){
@@ -55,7 +55,7 @@ function makeSubShape(Votes, idcount, size, ondiv)
 {
 	var canvas = document.createElement('canvas');
 
-	canvas.sides = 4
+	canvas.sides = Votes
 	canvas.color = "#FFD464"
 	canvas.id = "canvas";
 	//canvas.id = "submitShape";
@@ -66,6 +66,7 @@ function makeSubShape(Votes, idcount, size, ondiv)
 
 	canvas.setAttribute('number', idcount)
 	canvas.setAttribute('Votes', Votes)
+	canvas.setAttribute('prevClicked', 0)
 
 	$('#content').append(canvas);
 	
@@ -102,10 +103,9 @@ function drawShapeUp(canvasIn)
 	var canvas = canvasIn
 
 	id = $(canvas).attr('number')
-	votes = $(canvas).attr('Votes')
+	sides = $(canvas).attr('Votes')
 	width = canvas.width
 	height = canvas.height
-	sides = canvas.sides
 	color = canvas.color
 
 	var graphics = canvas.getContext("2d");
@@ -124,15 +124,16 @@ function drawShapeUp(canvasIn)
 	// text
 	graphics.fillStyle = "#FFFFFF";;
 	graphics.textAlign="center"
-	if (votes == -1)
+
+	if (id == 1)
 	{
 		graphics.font = 'bold 33pt arial';
-		graphics.fillText(armConvert(votes),width/2,height/2 + 16);
+		graphics.fillText(armConvert(-1),width/2,height/2 + 16);
 	}
 	else
 	{
 		graphics.font = 'normal 27pt arian_amu';
-		graphics.fillText(armConvert(votes),width/2,height/2 + 13);
+		graphics.fillText(armConvert(sides),width/2,height/2 + 13);
 	}
 }
 
@@ -318,7 +319,14 @@ $('#content').on('click', '#canvas',  function(e)
     	drawShapeUp($(this)[0])
    		$('.vahaksucks').each(function(index){
 			$(this).hide('fast');
-			clickid = -1;
+
+			// set prevClicked on all shapes back to 0
+			$('canvas').each(function()
+		    {
+		    	if ($(this).prop('id') == "canvas")
+					$(this).attr("prevClicked", 0);
+		    });
+			
         });
     }
     else
@@ -356,16 +364,16 @@ $('#content').on('click', '#canvas',  function(e)
 					$(this).hide('fast');	
     		}
     	});
+
+    	$('canvas').each(function()
+	    {
+	    	if ($(this).prop('id') == "canvas")
+	        	$(this).attr("prevClicked", clickid);
+	    });
     };
 
     if (!clickedBefore)
     	$(this).toggleClass("clickedBefore");
-
-    $('canvas').each(function()
-    {
-    	if ($(this).prop('id') == "canvas" && $(this).attr('number') != clickid)
-        	$(this)[0].setAttribute("prevClicked", clickid);
-    });
 });
 
 
@@ -421,13 +429,16 @@ $('#content').on('click', '#hull',  function(e) {
 	    	if ($(this).prop('id') == "canvas" && $(this).attr('number') == number)
 	    	{
 	        	dataID = $(this).attr('dataID');
-	        	console.log(dataID);
 	        	$.post( 
 				     "upvote.php",
 				     {ID: $(this).attr('dataID')},
 				     function(data) {
 				        console.log('upvoted')
 			 	});
+
+			 	// redraw shape
+			 	$(this).attr('Votes', parseInt($(this).attr('Votes')) +1);
+			 	drawShapeUp($(this)[0]);
 	        }
 	    });
 	}
