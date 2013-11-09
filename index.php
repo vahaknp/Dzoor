@@ -43,24 +43,33 @@
 
 			<div id="content">
 				<script id="posts" type="text/html">
-					<%idcount = 2%>
-					<% _.each(array, function(obj){ %>
-						<%if (obj.Live == 1){%>
-							<%makeShape(obj.ID, obj.Armenian, obj.English, obj.Place, obj.Name, obj.NameArm, obj.Date, obj.Votes, idcount, 120, '#content');%>
 
-							<% if (idcount == array.length + 1){%>
-								<% for(i=0; i < idcount%4; i++){%>
-									<%$('#content').append('<div class="vahaksucks" number='+(idcount-i)+'>  </div>');%>
+					<%liveAmount = 0;%>
+					<% _.each(array, function(obj){ %>
+						<%if (obj.Live == 1){liveAmount += 1 }%>	
+					<% }); %>			
+
+					<%if (liveAmount == 0){%>
+						<%$('#content').append('<div class="vahaksucks" number='+(1)+'>  </div>');%>
+					<%} else {%>
+						<%idcount = 2%>
+						<% _.each(array, function(obj){ %>
+							<%if (obj.Live == 1){%>
+								<%makeShape(obj.ID, obj.Armenian, obj.English, obj.Place, obj.Name, obj.NameArm, obj.Date, obj.Votes, idcount, 120, '#content');%>
+								<% if (idcount == liveAmount + 1){%>
+									<% for(i=0; i < idcount%4; i++){%>
+										<%$('#content').append('<div class="vahaksucks" number='+(idcount-i)+'>  </div>');%>
+									<%}%>
+								<%} else if(idcount%4 == 0){%>
+									<%$('#content').append('<div class="vahaksucks" number='+(idcount-3)+'>  </div>');%>
+									<%$('#content').append('<div class="vahaksucks" number='+(idcount-2)+'>  </div>');%>
+									<%$('#content').append('<div class="vahaksucks" number='+(idcount-1)+'>  </div>');%>
+									<%$('#content').append('<div class="vahaksucks" number='+(idcount)+'>  </div>');%>
 								<%}%>
-							<%} else if(idcount%4 == 0){%>
-								<%$('#content').append('<div class="vahaksucks" number='+(idcount-3)+'>  </div>');%>
-								<%$('#content').append('<div class="vahaksucks" number='+(idcount-2)+'>  </div>');%>
-								<%$('#content').append('<div class="vahaksucks" number='+(idcount-1)+'>  </div>');%>
-								<%$('#content').append('<div class="vahaksucks" number='+(idcount)+'>  </div>');%>
-							<%}%>
-							<%idcount += 1;%>
-						<%}%>	
-					<% }); %>
+								<%idcount += 1;%>
+							<%}%>	
+						<% }); %>
+					<%} %>
 				</script>
 			</div>
 

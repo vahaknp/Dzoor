@@ -278,41 +278,8 @@ $('#content').on('click', '#canvas',  function(e)
     clickedBefore = $(this).hasClass('clickedBefore');
 
     clickid = $(this).attr('number')
-    Armenian = $(this).attr('Armenian')
-    English = $(this).attr('English')
-    Place = $(this).attr('Place')
-    Name = $(this).attr('Name')
-    NameArm = $(this).attr('NameArm')
-    leDate = $(this).attr('Date')
     Votes = $(this).attr('Votes')
-	
-
-   	if(clickid == 1)
-   	{
-   		// submit shape html
-	    htmlstring = "  <div class='submittext'> \
-							<input type='textbox' class='sentbox' id='english' placeholder='In English'></input> \
-							<input type='textbox' class='sentbox' id='armenian' placeholder='Հայերենով'></input> \
-							<input type='textbox' class='otherbox' id='name' placeholder='And you are?'></input> \
-							<input type='textbox' class='otherbox' id='location' placeholder='Where?'></input> \
-						</div> "
-   	}
-   	else
-   	{
-        // all other shapes
-        htmlstring = "	<span class='engFont'> In " +Place+", <br>	\
-        				"+Name+" Thought: '"+English+"'.  <br>	\
-        				</span> <span class='armFont'> Սուրէնը ըսավ: 'Ձրի ժամանակ ունի՞ս:'  <br>	\
-        				Զինքը վաստակած է "+Votes+" կողմ: </span>	"
-        
-
-        // SHOULD BE !!! HTML string
-        //htmlstring = "	<span class='engFont'> In " +Place+", <br>	\
-        //				"+Name+" Thought: '"+English+"'.  <br>	\
-        //				</span> <span class='armFont'> "+NameArm+" ըսավ: '"+Armenian+"'  <br>	\
-        //				Զինքը վաստակած է "+Votes+" կողմ: </span> 	"
-        //	   		
-   	}
+	htmlstring = getVSHtml($(this), clickid == 1);
 
     if (clickid == prevClicked){
     	// If this shaped was already clicked
@@ -421,26 +388,43 @@ $('#content').on('mouseout', '#hull',  function(e) {
 // ######## onCLICK ######## //
 
 $('#content').on('click', '#hull',  function(e) {
+	e.preventDefault();
 	if(!$(this).prop('checked'))
 	{
 		number = $(this).parent().attr('number')
-		$('canvas').each(function()
-	    {
-	    	if ($(this).prop('id') == "canvas" && $(this).attr('number') == number)
-	    	{
-	        	dataID = $(this).attr('dataID');
-	        	$.post( 
-				     "upvote.php",
-				     {ID: $(this).attr('dataID')},
-				     function(data) {
-				        console.log('upvoted')
-			 	});
 
-			 	// redraw shape
-			 	$(this).attr('Votes', parseInt($(this).attr('Votes')) +1);
-			 	drawShapeUp($(this)[0]);
-	        }
-	    });
+		console.log(number)
+		// check if submit hull
+		if(number == 1)
+		{
+			$.post( 
+		     "insert.php",
+		     {english: $('#english').val(), armenian: $('#armenian').val(), name: $('#name').val(), location: $('#location').val()},
+		     function(data) {
+		        $('#page').append(data);
+		 	});
+		}
+		else
+		{
+			$('canvas').each(function()
+		    {
+		    	if ($(this).prop('id') == "canvas" && $(this).attr('number') == number)
+		    	{
+		        	dataID = $(this).attr('dataID');
+		        	$.post( 
+					     "upvote.php",
+					     {ID: $(this).attr('dataID')},
+					     function(data) {
+					        console.log('upvoted')
+				 	});
+
+				 	// redraw shape
+				 	$(this).attr('Votes', parseInt($(this).attr('Votes')) +1);
+				 	drawShapeUp($(this)[0])
+		        }
+		    });	
+			
+		}
 	}
 	$(this).prop('checked', true)
 });
@@ -545,4 +529,37 @@ function armConvert(number)
 		round += 1;
 	}
 	return (outcome)
+}
+
+function getVSHtml(canvas, isSubmit)
+{
+	if(isSubmit)
+	{
+	    htmlstring = "  <div class='submittext'> \
+					<input type='textbox' class='sentbox' id='english' placeholder='In English'></input> \
+					<input type='textbox' class='sentbox' id='armenian' placeholder='Հայերենով'></input> \
+					<input type='textbox' class='otherbox' id='name' placeholder='And you are?'></input> \
+					<input type='textbox' class='otherbox' id='location' placeholder='Where?'></input> \
+				</div> "
+
+	}
+	else
+	{
+
+		Armenian = canvas.attr('Armenian')
+	    English = canvas.attr('English')
+	    Place = canvas.attr('Place')
+	    Name = canvas.attr('Name')
+	    NameArm = canvas.attr('NameArm')
+	    leDate = canvas.attr('Date')
+	    Votes = canvas.attr('Votes')
+
+	    // other shape vahaksucks html
+	    htmlstring = "	<span class='engFont'> In " +Place+", <br>	\
+	    				"+Name+" Thought: '"+English+"'.  <br>	\
+	    				</span> <span class='armFont'> "+NameArm+" ըսավ: '"+Armenian+"'  <br>	\
+	    				Զինքը վաստակած է "+Votes+" կողմ: </span> 	"	
+	}
+	
+    return (htmlstring)
 }
