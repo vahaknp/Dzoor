@@ -422,6 +422,12 @@ $('#content').on('click', '#hull',  function(e) {
 	    	{
 	        	dataID = $(this).attr('dataID');
 	        	console.log(dataID);
+	        	$.post( 
+				     "upvote.php",
+				     {ID: $(this).attr('dataID')},
+				     function(data) {
+				        console.log('upvoted')
+			 	});
 	        }
 	    });
 	}
