@@ -17,7 +17,7 @@ function on_load2(){
 
 // ######## SHAPES ######## // 
 
-function makeShape(ID, Armenian, English, Place, Name, NameArm, leDate, Votes, idcount, size, ondiv)
+function makeShape(dataID, Armenian, English, Place, Name, NameArm, leDate, Votes, idcount, size, ondiv)
 {
 	var canvas = document.createElement('canvas');
 
@@ -35,6 +35,7 @@ function makeShape(ID, Armenian, English, Place, Name, NameArm, leDate, Votes, i
 	canvas.style.margin = "15px 15px 5px 15px"
 
 	canvas.setAttribute('number', idcount)
+	canvas.setAttribute('dataID', dataID)
 	canvas.setAttribute('Armenian', Armenian)
 	canvas.setAttribute('English', English)
 	canvas.setAttribute('Place', Place)
@@ -362,7 +363,7 @@ $('#content').on('click', '#canvas',  function(e)
 
     $('canvas').each(function()
     {
-    	if ($(this).prop('id') == "canvas")
+    	if ($(this).prop('id') == "canvas" && $(this).attr('number') != clickid)
         	$(this)[0].setAttribute("prevClicked", clickid);
     });
 });
@@ -413,7 +414,17 @@ $('#content').on('mouseout', '#hull',  function(e) {
 
 $('#content').on('click', '#hull',  function(e) {
 	if(!$(this).prop('checked'))
-		console.log($(this).parent().attr('number')); // what this prints is equivalent to any shape's (canvas) number attribute. 
+	{
+		number = $(this).parent().attr('number')
+		$('canvas').each(function()
+	    {
+	    	if ($(this).prop('id') == "canvas" && $(this).attr('number') == number)
+	    	{
+	        	dataID = $(this).attr('dataID');
+	        	console.log(dataID);
+	        }
+	    });
+	}
 	$(this).prop('checked', true)
 });
 
