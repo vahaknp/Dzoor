@@ -131,14 +131,14 @@
 	margin-bottom: 10px;
 }
 
-.otherbox
+.infoBox
 {
 	border-width: 0px 0px 1px 0px;  
-	width: 227px;
+	width: 151px;
 	border-color: black;
 }
 
-.sentbox
+.contentBox
 {
 	
 	border-width: 0px 0px 1px 0px; 
