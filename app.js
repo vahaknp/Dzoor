@@ -17,14 +17,9 @@ function on_load2(){
 
 // ######## SHAPES ######## // 
 
-function makeShape(dataID, Armenian, English, Place, Name, NameArm, leDate, Votes, idcount, size, ondiv)
+function makeShape(dataID, Armenian, English, Place, Name, NameArm, leDate, Votes, idcount, size, color, ondiv)
 {
 	var canvas = document.createElement('canvas');
-
-	var colors = new Array("#FF4D4D","#469AE9","#FF4D4D","#469AE9", "#AAAAAA")
-	//var colors = new Array("#E84C3D","#F1C40F", "#1BBC9B", "#9B58B5")
-	//var colors = new Array("#D81236","#38558F","#38558F","#D96700","#F2B76B")
-	color = colors[Math.floor(Math.random() * colors.length)];
 	
 	canvas.color = color
 	canvas.id = "canvas";

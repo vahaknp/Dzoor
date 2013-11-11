@@ -47,7 +47,16 @@
 					<%liveAmount = 0;%>
 					<% _.each(array, function(obj){ %>
 						<%if (obj.Live == 1){liveAmount += 1 }%>	
-					<% }); %>			
+					<% }); %>		
+
+					<% liveAmount  = 10 %>
+
+					<%colors = new Array();%>
+					<% for(i=0; i < liveAmount; i++){%>
+						<% if (i < liveAmount * 0.4) colors.push("FF4D4D"); else if(i < liveAmount * 0.8) colors.push("#469AE9"); else colors.push("#AAAAAA");%>
+					<%}%>
+
+					<%for(var j, x, i = colors.length; i; j = parseInt(Math.random() * i), x = colors[--i], colors[i] = colors[j], colors[j] = x);%>
 
 					<%if (liveAmount == 0){%>
 						<%$('#content').append('<div class="vahaksucks" number='+(1)+'>  </div>');%>
@@ -55,7 +64,7 @@
 						<%idcount = 2%>
 						<% _.each(array, function(obj){ %>
 							<%if (obj.Live == 1){%>
-								<%makeShape(obj.ID, obj.Armenian, obj.English, obj.Place, obj.Name, obj.NameArm, obj.Date, obj.Votes, idcount, 120, '#content');%>
+								<%makeShape(obj.ID, obj.Armenian, obj.English, obj.Place, obj.Name, obj.NameArm, obj.Date, obj.Votes, idcount, 120, colors[idcount], '#content');%>
 								<%console.log(idcount == liveAmount + 1)%>
 								<% if (idcount == liveAmount + 1 && idcount%4 != 0){%>
 									<% for(i=0; i < idcount%4; i++){%>
