@@ -274,14 +274,16 @@ $('#content').on('click', '#canvas',  function(e)
 
     prevClicked = $(this).attr('prevClicked')
     clickedBefore = $(this).hasClass('clickedBefore');
-
     clickid = $(this).attr('number')
     Votes = $(this).attr('Votes')
 	htmlstring = getVSHtml($(this), clickid == 1);
+	drawShapeUp($(this)[0]);
+	drawShapeDown($(this)[0])
 
     if (clickid == prevClicked){
     	// If this shaped was already clicked
-    	drawShapeUp($(this)[0])
+    	//drawShapeDown($(this)[0])
+
    		$('.vahaksucks').each(function(index){
 			$(this).hide('fast');
 
@@ -296,6 +298,7 @@ $('#content').on('click', '#canvas',  function(e)
     }
     else
     {
+    	//drawShapeDown($(this)[0]);
         $('canvas').each(function(index, obj)
         {
         	if($(this).prop('id') == "canvas" && $(this).attr('number') != clickid)
