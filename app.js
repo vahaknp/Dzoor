@@ -71,7 +71,7 @@ function makeSubShape(Votes, idcount, size, ondiv)
 	drawShapeUp(canvas)
 }
 
-function makeShapeHull(size, sides, ondiv, isSubmit)
+function makeShapeHull(size, sides, ondiv, isSubmit, isChecked)
 {
 	var canvas = document.createElement('canvas');
 
@@ -87,8 +87,17 @@ function makeShapeHull(size, sides, ondiv, isSubmit)
 	height = size
 	canvas.width = width
 	canvas.height = height
-	canvas.setAttribute('Sides', parseInt(sides))
-	canvas.checked =  false;
+
+	if (isChecked)
+	{
+		canvas.checked =  true;
+		canvas.setAttribute('Sides', parseInt(sides) - 1)
+	}
+	else
+	{
+		canvas.checked =  false;
+		canvas.setAttribute('Sides', parseInt(sides))
+	}
 
 	$(ondiv).append(canvas);
 
@@ -230,10 +239,11 @@ function shapeGraphics(graphics, color, width, sides, offset, fill, stroke)
 		graphics.stroke()
 }
 
-function placeArrowBar(position, ondiv)
+function placeArrowBar(ondiv)
 {
 	var canvas = document.createElement('canvas');
 
+	position = ondiv.attr('number');
 	canvas.style.position = "relative"
 	canvas.style.float = "top"
 	canvas.height = 30
@@ -310,14 +320,7 @@ $('#content').on('click', '#canvas',  function(e)
     		{
     			if (!clickedBefore)
     			{
-    				placeArrowBar(clickid,  $(this))
-
-    				if(clickid == 1)
-    					makeShapeHull(80, 3, $(this), true)
-    				else
-						makeShapeHull(80, Votes, $(this), false)
-
-					$(this).append(htmlstring)
+    				fillVS($(this), htmlstring, false)
 				}
 				if(Math.floor((clickid-1)/4) == Math.floor((prevClicked-1)/4) && clickid != prevClicked)
     				$(this).show();
@@ -392,11 +395,10 @@ $('#content').on('click', '#hull',  function(e) {
 	e.preventDefault();
 	if(!$(this).prop('checked'))
 	{
-		number = $(this).parent().attr('number')
+		clickid = $(this).parent().attr('number')
 
-		console.log(number)
 		// check if submit hull
-		if(number == 1)
+		if(clickid == 1)
 		{
 			$.post( 
 		     "insert.php",
@@ -409,20 +411,30 @@ $('#content').on('click', '#hull',  function(e) {
 		{
 			$('canvas').each(function()
 		    {
-		    	if ($(this).prop('id') == "canvas" && $(this).attr('number') == number)
+		    	canvasEl = $(this)
+		    	if (canvasEl.prop('id') == "canvas" && canvasEl.attr('number') == clickid)
 		    	{
-		        	dataID = $(this).attr('dataID');
+		        	dataID = canvasEl.attr('dataID');
 		        	$.post( 
 					     "upvote.php",
-					     {ID: $(this).attr('dataID')},
+					     {ID: canvasEl.attr('dataID')},
 					     function(data) {
 					        console.log('upvoted')
 				 	});
 
 				 	// redraw shape
-				 	$(this).attr('Votes', parseInt($(this).attr('Votes')) +1);
+				 	canvasEl.attr('Votes', parseInt(canvasEl.attr('Votes')) +1);
 				 	drawShapeUp($(this)[0])
 				 	drawShapeDown($(this)[0])
+
+				 	// refill VS
+				 	$('.vahaksucks').each(function(index){
+			    		if ($(this).attr('number') == clickid)
+			    		{
+			    			$(this).html("");
+				 			fillVS($(this), getVSHtml(canvasEl, false), true);
+				 		}
+				 	});
 		        }
 		    });	
 			
@@ -552,4 +564,16 @@ function getVSHtml(canvas, isSubmit)
 	}
 	
     return (htmlstring)
+}
+
+function fillVS(vsElement, htmlstring, isHullChecked)
+{
+	placeArrowBar(vsElement);
+
+	if(clickid == 1)
+		makeShapeHull(80, 3, vsElement, true, isHullChecked)
+	else
+		makeShapeHull(80, Votes, vsElement, false, isHullChecked)
+
+	vsElement.append(htmlstring);
 }
