@@ -25,12 +25,7 @@ function makeShape(dataID, Armenian, English, Place, Name, NameArm, leDate, Vote
 	//var colors = new Array("#E84C3D","#F1C40F", "#1BBC9B", "#9B58B5")
 	//var colors = new Array("#D81236","#38558F","#38558F","#D96700","#F2B76B")
 	color = colors[Math.floor(Math.random() * colors.length)];
-<<<<<<< HEAD
-
-=======
 	
-	canvas.sides = Votes
->>>>>>> parent of 242cc85... Fixed redrawing the shape when upvoted
 	canvas.color = color
 	canvas.id = "canvas";
 	canvas.width = size;
@@ -59,7 +54,6 @@ function makeSubShape(Votes, idcount, size, ondiv)
 {
 	var canvas = document.createElement('canvas');
 
-	canvas.sides = Votes
 	canvas.color = "#FFD464"
 	canvas.id = "canvas";
 	//canvas.id = "submitShape";
@@ -146,9 +140,9 @@ function drawShapeDown(canvasIn)
 	var canvas = canvasIn
 
 	id = $(canvas).attr('number')
+	sides = $(canvas).attr('Votes')
 	width = canvas.width
 	height = canvas.height
-	sides = canvas.sides
 	color = canvas.color
 	color = '#FFFFFF'
 
@@ -403,7 +397,7 @@ $('#content').on('click', '#hull',  function(e) {
 		{
 			$.post( 
 		     "insert.php",
-		     {english: $('#english').val(), armenian: $('#armenian').val(), engName: $('#engName').val(), armName: $('#armName').val(), location: $('#location').val()},
+		     {english: $('#english').val(), armenian: $('#armenian').val(), name: $('#name').val(), location: $('#location').val()},
 		     function(data) {
 		        $('#page').append(data);
 		 	});
@@ -425,6 +419,7 @@ $('#content').on('click', '#hull',  function(e) {
 				 	// redraw shape
 				 	$(this).attr('Votes', parseInt($(this).attr('Votes')) +1);
 				 	drawShapeUp($(this)[0])
+				 	drawShapeDown($(this)[0])
 		        }
 		    });	
 			
@@ -432,6 +427,19 @@ $('#content').on('click', '#hull',  function(e) {
 	}
 	$(this).prop('checked', true)
 });
+
+
+
+$('#page').on('click', '#submit',  function(e) {
+	e.preventDefault();
+	$.post( 
+     "insert.php",
+     {english: $('#english').val(), armenian: $('#armenian').val(), name: $('#name').val(), location: $('#location').val()},
+     function(data) {
+        $('#page').html(data);
+ 	});
+});
+
 
 // Click pending
 
@@ -526,14 +534,13 @@ function getVSHtml(canvas, isSubmit)
 {
 	if(isSubmit)
 	{
-
 	    htmlstring = "  <div class='submittext'> \
-					<input type='textbox' class='contentBox' id='english' placeholder='In English'></input> \
-					<input type='textbox' class='contentBox' id='armenian' placeholder='Հայերենով'></input> \
-					<input type='textbox' class='infoBox' id='engName' placeholder='Name in English'></input> \
-					<input type='textbox' class='infoBox' id='armName' placeholder='Անունդ Հայերենով'></input> \
-					<input type='textbox' class='infoBox' id='location' placeholder='Location'></input> \
+					<input type='textbox' class='sentbox' id='english' placeholder='In English'></input> \
+					<input type='textbox' class='sentbox' id='armenian' placeholder='Հայերենով'></input> \
+					<input type='textbox' class='otherbox' id='name' placeholder='And you are?'></input> \
+					<input type='textbox' class='otherbox' id='location' placeholder='Where?'></input> \
 				</div> "
+
 	}
 	else
 	{

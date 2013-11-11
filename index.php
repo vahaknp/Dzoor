@@ -56,11 +56,10 @@
 						<% _.each(array, function(obj){ %>
 							<%if (obj.Live == 1){%>
 								<%makeShape(obj.ID, obj.Armenian, obj.English, obj.Place, obj.Name, obj.NameArm, obj.Date, obj.Votes, idcount, 120, '#content');%>
-								<%console.log(idcount%4 == 0)%>
 								<% if (idcount == liveAmount + 1){%>
 									<% for(i=0; i < idcount%4; i++){%>
 										<%$('#content').append('<div class="vahaksucks" number='+(idcount-i)+'>  </div>');%>
-									<%};%>
+									<%}%>
 								<%} else if(idcount%4 == 0){%>
 									<%$('#content').append('<div class="vahaksucks" number='+(idcount-3)+'>  </div>');%>
 									<%$('#content').append('<div class="vahaksucks" number='+(idcount-2)+'>  </div>');%>
