@@ -25,7 +25,7 @@ function makeShape(dataID, Armenian, English, Place, Name, NameArm, leDate, Vote
 	//var colors = new Array("#E84C3D","#F1C40F", "#1BBC9B", "#9B58B5")
 	//var colors = new Array("#D81236","#38558F","#38558F","#D96700","#F2B76B")
 	color = colors[Math.floor(Math.random() * colors.length)];
-	
+
 	canvas.color = color
 	canvas.id = "canvas";
 	canvas.width = size;
@@ -521,6 +521,7 @@ function getVSHtml(canvas, isSubmit)
 {
 	if(isSubmit)
 	{
+
 	    htmlstring = "  <div class='submittext'> \
 					<input type='textbox' class='contentBox' id='english' placeholder='In English'></input> \
 					<input type='textbox' class='contentBox' id='armenian' placeholder='Հայերենով'></input> \
@@ -528,7 +529,6 @@ function getVSHtml(canvas, isSubmit)
 					<input type='textbox' class='infoBox' id='armName' placeholder='Անունդ Հայերենով'></input> \
 					<input type='textbox' class='infoBox' id='location' placeholder='Location'></input> \
 				</div> "
-
 	}
 	else
 	{
