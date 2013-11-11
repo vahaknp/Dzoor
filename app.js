@@ -397,7 +397,7 @@ $('#content').on('click', '#hull',  function(e) {
 		{
 			$.post( 
 		     "insert.php",
-		     {english: $('#english').val(), armenian: $('#armenian').val(), name: $('#name').val(), location: $('#location').val()},
+		     {english: $('#english').val(), armenian: $('#armenian').val(), engName: $('#engName').val(), armName: $('#armName').val(), location: $('#location').val()},
 		     function(data) {
 		        $('#page').append(data);
 		 	});
@@ -427,19 +427,6 @@ $('#content').on('click', '#hull',  function(e) {
 	}
 	$(this).prop('checked', true)
 });
-
-
-
-$('#page').on('click', '#submit',  function(e) {
-	e.preventDefault();
-	$.post( 
-     "insert.php",
-     {english: $('#english').val(), armenian: $('#armenian').val(), name: $('#name').val(), location: $('#location').val()},
-     function(data) {
-        $('#page').html(data);
- 	});
-});
-
 
 // Click pending
 
@@ -535,10 +522,11 @@ function getVSHtml(canvas, isSubmit)
 	if(isSubmit)
 	{
 	    htmlstring = "  <div class='submittext'> \
-					<input type='textbox' class='sentbox' id='english' placeholder='In English'></input> \
-					<input type='textbox' class='sentbox' id='armenian' placeholder='Հայերենով'></input> \
-					<input type='textbox' class='otherbox' id='name' placeholder='And you are?'></input> \
-					<input type='textbox' class='otherbox' id='location' placeholder='Where?'></input> \
+					<input type='textbox' class='contentBox' id='english' placeholder='In English'></input> \
+					<input type='textbox' class='contentBox' id='armenian' placeholder='Հայերենով'></input> \
+					<input type='textbox' class='infoBox' id='engName' placeholder='Name in English'></input> \
+					<input type='textbox' class='infoBox' id='armName' placeholder='Անունդ Հայերենով'></input> \
+					<input type='textbox' class='infoBox' id='location' placeholder='Location'></input> \
 				</div> "
 
 	}
