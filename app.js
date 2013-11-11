@@ -559,7 +559,7 @@ function getVSHtml(canvas, isSubmit)
 	    // other shape vahaksucks html
 	    htmlstring = "	<span class='engFont'> In " +Place+", <br>	\
 	    				"+Name+" Thought: '"+English+"'.  <br>	\
-	    				</span> <span class='armFont'> "+NameArm+" ըսավ: '"+Armenian+"'  <br>	\
+	    				</span> <span class='armFont'> "+NameArm+"ը ըսավ: '"+Armenian+"'  <br>	\
 	    				Զինքը վաստակած է "+Votes+" կողմ: </span> 	"	
 	}
 	
