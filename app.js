@@ -21,6 +21,7 @@ function makeShape(dataID, Armenian, English, Place, Name, NameArm, leDate, Vote
 {
 	var canvas = document.createElement('canvas');
 	
+	console.log(color);
 	canvas.color = color
 	canvas.id = "canvas";
 	canvas.width = size;

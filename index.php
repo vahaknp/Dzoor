@@ -62,7 +62,8 @@
 						<%idcount = 2%>
 						<% _.each(array, function(obj){ %>
 							<%if (obj.Live == 1){%>
-								<%makeShape(obj.ID, obj.Armenian, obj.English, obj.Place, obj.Name, obj.NameArm, obj.Date, obj.Votes, idcount, 120, colors[idcount], '#content');%>
+								<%console.log(colors[idcount])%>
+								<%makeShape(obj.ID, obj.Armenian, obj.English, obj.Place, obj.Name, obj.NameArm, obj.Date, obj.Votes, idcount, 120, colors[idcount-2], '#content');%>
 								<% if (idcount == liveAmount + 1 && idcount%4 != 0){%>
 									<% for(i=0; i < idcount%4; i++){%>
 										<%$('#content').append('<div class="vahaksucks" number='+(idcount-i)+'>  </div>');%>
