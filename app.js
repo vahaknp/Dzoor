@@ -318,10 +318,7 @@ $('#content').on('click', '#canvas',  function(e)
     			{
     				fillVS($(this), htmlstring, false)
 				}
-				if(Math.floor((clickid-1)/4) == Math.floor((prevClicked-1)/4) && clickid != prevClicked)
-    				$(this).show();
-    			else
-					$(this).show('fast');	
+				$(this).show('fast');	
     		}
     		else
     		{
@@ -555,8 +552,8 @@ function getVSHtml(canvas, isSubmit)
 	    // other shape vahaksucks html
 	    htmlstring = "	<span class='engFont'> In " +Place+", <br>	\
 	    				"+Name+" Thought: '"+English+"'.  <br>	\
-	    				</span> <span class='armFont'> "+NameArm+"ը ըսավ: '"+Armenian+"'  <br>	\
-	    				Զինքը վաստակած է "+Votes+" կողմ: </span> 	"	
+	    				</span> <span class='armFont'> "+NameArm+"ը ըսավ: '"+Armenian+"'  <br>	"
+	    				//	Զինքը վաստակած է "+Votes+" կողմ: </span> 	"	
 	}
 	
     return (htmlstring)
