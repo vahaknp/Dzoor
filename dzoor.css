@@ -31,6 +31,24 @@
 
 }
 
+#canvas
+{
+	position: relative;
+	margin: 15px 15px 5px 15px;	
+}
+
+#hull
+{
+	float: right;
+	margin-right: 16px;
+}
+
+#arrowBar
+{
+	position: relative;
+	float: top;
+}
+
 .armFont 
 { 
 	font-family: "Fedra Sans Armenian Book";

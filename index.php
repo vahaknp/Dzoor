@@ -51,7 +51,7 @@
 
 					<%colors = new Array();%>
 					<% for(i=0; i < liveAmount; i++){%>
-						<% if (i < liveAmount * 0.4) colors.push("FF4D4D"); else if(i < liveAmount * 0.8) colors.push("#469AE9"); else colors.push("#AAAAAA");%>
+						<% if (i < liveAmount * 0.4) colors.push("#FF4D4D"); else if(i < liveAmount * 0.8) colors.push("#469AE9"); else colors.push("#AAAAAA");%>
 					<%}%>
 
 					<%for(var j, x, i = colors.length; i; j = parseInt(Math.random() * i), x = colors[--i], colors[i] = colors[j], colors[j] = x);%>

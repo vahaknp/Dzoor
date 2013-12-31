@@ -26,8 +26,6 @@ function makeShape(dataID, Armenian, English, Place, Name, NameArm, leDate, Vote
 	canvas.id = "canvas";
 	canvas.width = size;
 	canvas.height = size;
-	canvas.style.position = "relative";
-	canvas.style.margin = "15px 15px 5px 15px"
 
 	canvas.setAttribute('number', idcount)
 	canvas.setAttribute('dataID', dataID)
@@ -55,8 +53,6 @@ function makeSubShape(Votes, idcount, size, ondiv)
 	//canvas.id = "submitShape";
 	canvas.width = size;
 	canvas.height = size;
-	canvas.style.position = "relative";
-	canvas.style.margin = "15px 15px 5px 15px"
 
 	canvas.setAttribute('number', idcount)
 	canvas.setAttribute('Votes', Votes)
@@ -70,10 +66,7 @@ function makeSubShape(Votes, idcount, size, ondiv)
 function makeShapeHull(size, sides, ondiv, isSubmit, isChecked)
 {
 	var canvas = document.createElement('canvas');
-
 	canvas.id = "hull"
-	canvas.style.float = "right"
-	canvas.style.marginRight = "16px";
 
 	if (isSubmit)
 		canvas.style.marginTop = "3px"
@@ -240,8 +233,7 @@ function placeArrowBar(ondiv)
 	var canvas = document.createElement('canvas');
 
 	position = ondiv.attr('number');
-	canvas.style.position = "relative"
-	canvas.style.float = "top"
+	canvas.id = "arrowBar";
 	canvas.height = 30
 	canvas.width = 600
 
