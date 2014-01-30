@@ -25,9 +25,10 @@
 	<body bgcolor="#FFFFFF" onload="on_load()">
 		<div id="page">		
 			<div id="title">
-				<div id = "icon"> <center> <object type="image/svg+xml" data="logovec.svg"></object> </center> </div>
+				<div id = "icon"> <center> <object type="image/svg+xml" data="logovec3.svg"></object> </center> </div>
 				<div id="EngBox">
-					<div id= "EngText">	Dzoor is a website that contains sentences mistranslated from Armenian to english. The direct translations result in silly Armenian sentences. This collection clearly presents.
+					<div id= "EngText">	
+						If Ara says, "Ձրի ժամանակ ունի՞ս:", laugh on him and upload it to Dzoor.
 					</div>
 				</div>
 				<!--
