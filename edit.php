@@ -3,7 +3,7 @@
 	if( $_REQUEST["ID"] && $_REQUEST["english"] && $_REQUEST["armenian"] && $_REQUEST["place"] && $_REQUEST["name"] && $_REQUEST["namearm"])
 	{
 		   $index = $_REQUEST['ID'];
-		   $english = $_REQUEST['english'];
+		   $english = $_REQUEST["english"];
 		   $armenian = $_REQUEST['armenian'];
 		   $place = $_REQUEST['place'];
 		   $name = $_REQUEST['name'];

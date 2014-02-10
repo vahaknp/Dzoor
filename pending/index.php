@@ -1,12 +1,13 @@
 <html>
 	<head>
-		<? include ('get_server.php') ?>
-		<link rel="stylesheet" type="text/css" href="dzoor.css" media="screen" />
+		<? include ('../get_server.php') ?>
+		<link rel="stylesheet" type="text/css" href="../dzoor.css" media="screen" />
 		<script type="application/javascript">
 		    var array = <? echo json_encode($dServer); ?>;
 		    console.log(array);
 		</script>
 	</head>
+	<title> Dzoor Pending </title>
 	<body onload="on_load2()">
 		<div id="page">	
 			<p>TESTING YO YO</p>
@@ -36,6 +37,6 @@
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
-        <script type="text/javascript" src="app.js"></script>
+        <script type="text/javascript" src="../app.js"></script>
 	</body>
 </html>

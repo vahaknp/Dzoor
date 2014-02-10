@@ -1,7 +1,0 @@
-AuthName "Restricted Area" 
-AuthType Basic 
-AuthUserFile /.htpasswd 
-AuthGroupFile /dev/null 
-<Files pending.php>
-require valid-user
-</Files>

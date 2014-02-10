@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="http://fonts.typotheque.com/WF-021658-002759.css" type="text/css" />
 		<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css' />
 		<script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
-		<title> Dzoor </title>
+		<title>Dzoor</title>
 				
 		<script type="application/javascript">
 		    var array = <? echo json_encode($dServer); ?>;
