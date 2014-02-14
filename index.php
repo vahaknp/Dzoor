@@ -25,7 +25,7 @@
 	<body bgcolor="#FFFFFF" onload="on_load()">
 		<div id="page">		
 			<div id="title">
-				<div id = "icon"> <center> <object type="image/svg+xml" data="logovec3.svg"></object> </center> </div>
+				<div id = "icon"> <center> <object type="image/svg+xml" data="logovec.svg"></object> </center> </div>
 				<div id="EngBox">
 					<div id= "EngText">	
 						Languages don’t always necessarily map one to one. If you think in one language and speak in another, things can get <span class='armFont'> ծուռիկ-մուրիկ </span>. Just because you're free doesn't mean that you're not worth anything. <br> So if Ara asks, "<span class='armFont'>Ձրի ե՞ս:</span>", laugh on him and upload it to Dzoor.
