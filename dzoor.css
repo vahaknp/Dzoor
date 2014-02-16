@@ -70,7 +70,6 @@
 {
 	position:absolute;
 	left: 50%;
-	height: 1000px;
 	width: 600px;
 	margin: 50px 0px 0px -300px;
 }
@@ -134,7 +133,6 @@
 {
 	position:relative;
 	width: 600px;
-	height: 1000px;
 }
 
 .vahaksucks
